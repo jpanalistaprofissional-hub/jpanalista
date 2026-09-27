@@ -42,11 +42,14 @@ texto em cima do vídeo no computador.
 
 ## Próximos passos
 
-1. **Gerar as cenas** pela skill `scroll-world` (nível Lean: 4 cenas, câmera sempre para
-   frente, na vertical). Cada cena ganha `clip`, `clipMobile`, `poster` e `posterMobile` em
-   `index.html`.
-2. **Rodar a checagem das emendas** (SSIM ≥ 0,90) e o teste de layout.
-3. **Testar no celular de verdade, dentro do app do Instagram**, num iPhone e num Android.
+1. **Gerar as cenas no Magnific** seguindo `producao/ROTEIRO-MAGNIFIC.md`: 4 imagens (a primeira
+   passa por aprovação antes das outras) e 4 voos, cada um começando numa cena e terminando na
+   seguinte.
+2. **Processar no PC** com `node producao/processar.mjs`: converte os vídeos, tira os pôsteres,
+   mede as emendas e grava `assets/cenas.js`. A página troca dos rascunhos para as cenas reais
+   sozinha. O teste da costura do script é `node producao/processar.test.mjs`.
+3. **Rodar o teste de layout** e **testar no celular de verdade, dentro do app do Instagram**,
+   num iPhone e num Android.
 4. **Publicar** (abaixo).
 
 ## Publicar sem quebrar o que já está no domínio

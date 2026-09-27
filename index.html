@@ -62,6 +62,8 @@
   </dialog>
 
   <script src="scrub-engine.js"></script>
+  <!-- Cenas reais: gerado por producao/processar.mjs. Enquanto for null, a página usa os rascunhos. -->
+  <script src="assets/cenas.js"></script>
   <script>
     // ---- Um lugar só para o número e as mensagens prontas do WhatsApp ----
     var WHATSAPP = '5583991372862'; // ⚠️ confirmar com o JP antes de publicar
@@ -75,8 +77,9 @@
     function wa(chave) { return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(MSG[chave] || MSG.geral); }
     document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = wa(a.getAttribute('data-wa')); });
 
-    // Cenas: por enquanto só rascunhos (SVG 9:16). Quando os vídeos existirem, cada cena
-    // ganha clip/clipMobile/poster/posterMobile (skill scroll-world, passos 6 e 7).
+    // Cena i: usa o que producao/processar.mjs gerou (assets/cenas.js); senão, o rascunho SVG.
+    // Um encode só (720x1280) serve celular e a coluna do computador, por isso não há clipMobile.
+    function C(i, chave, padrao) { var c = window.CENAS && window.CENAS[i]; return (c && c[chave]) || padrao; }
     mountScrollWorld(document.getElementById('world'), {
       brand: { name: 'JP Analista', href: '#top' },
       cta: { label: 'Falar no WhatsApp', href: wa('geral') },
@@ -85,28 +88,28 @@
       diveScroll: 1.4,
       scrollMobileFactor: 1.2,
       sections: [
-        { id: 'chegada', label: 'Início', still: 'assets/chegada.svg', accent: '#C084FC',
+        { id: 'chegada', label: 'Início', still: C(0, 'still', 'assets/chegada.svg'), poster: C(0, 'poster'), clip: C(0, 'clip'), accent: '#C084FC',
           scroll: 1.2,
           eyebrow: 'JP Analista · IA Humanizada',
           title: 'IA que atende e vende pela sua empresa.',
           body: 'Sou o João Pedro, consultor de IA para atendimento e vendas. Role para atravessar o que eu entrego, ou fale comigo agora.',
           cta: { primary: { label: 'Falar no WhatsApp', href: wa('geral') },
                  secondary: { label: 'Todos os links', href: '#links' } } },
-        { id: 'gustobio', label: 'GustoBio', still: 'assets/gustobio.svg', accent: '#C084FC',
+        { id: 'gustobio', label: 'GustoBio', still: C(1, 'still', 'assets/gustobio.svg'), poster: C(1, 'poster'), clip: C(1, 'clip'), accent: '#C084FC',
           scroll: 1.6, linger: 0.45,
           eyebrow: 'Para restaurantes',
           title: 'Seu delivery atendendo sozinho no WhatsApp.',
           body: 'O GustoBio atende, anota o pedido e organiza a cozinha, do WhatsApp ao iFood e ao Quero Delivery.',
           tags: ['WhatsApp', 'iFood', 'Quero Delivery'],
           cta: { primary: { label: 'Quero o GustoBio', href: wa('gustobio') } } },
-        { id: 'ia', label: 'IA para empresas', still: 'assets/ia-empresas.svg', accent: '#60A5FA',
+        { id: 'ia', label: 'IA para empresas', still: C(2, 'still', 'assets/ia-empresas.svg'), poster: C(2, 'poster'), clip: C(2, 'clip'), accent: '#60A5FA',
           scroll: 1.6, linger: 0.45,
           eyebrow: 'Para empresas',
           title: 'Sua empresa com um time de IA.',
           body: 'Mentoria para começar do zero, consultoria para quem já usa IA e o GustoChat para atender no WhatsApp com agentes.',
           tags: ['Mentoria EstagIArio Prodígio', 'Consultoria de IA', 'GustoChat'],
           cta: { primary: { label: 'Conversar sobre IA', href: wa('ia') } } },
-        { id: 'sites', label: 'Sites e tráfego', still: 'assets/sites-trafego.svg', accent: '#C084FC',
+        { id: 'sites', label: 'Sites e tráfego', still: C(3, 'still', 'assets/sites-trafego.svg'), poster: C(3, 'poster'), clip: C(3, 'clip'), accent: '#C084FC',
           scroll: 1.6, linger: 0.4,
           eyebrow: 'Para aparecer e vender',
           title: 'Sites que impressionam. Anúncios que trazem cliente.',

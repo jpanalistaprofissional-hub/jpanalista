@@ -5,43 +5,82 @@
    Regras: celular primeiro. No computador, o vídeo vertical vira uma coluna.
    ========================================================================== */
 
+/* Identidade do JP (referências de 27/09: reels, capas e foto de estúdio):
+   fundo quase preto azulado, neon ciano (destaque) e violeta (luz), título condensado em
+   caixa alta com a palavra-chave em ciano, barra vertical violeta→ciano e traço ciano embaixo. */
 :root, .sw-root {
-  --sw-bg: #0E0F13;
-  --sw-ink: #F4F4F6;
-  --sw-ink-soft: #A1A1AA;
-  --sw-accent: #C084FC;
-  --sw-font-display: "Poppins", system-ui, sans-serif;
-  --sw-font-body: "Inter", system-ui, sans-serif;
-  --jp-panel: #1A1C23;
-  --jp-blue: #60A5FA;
-  --jp-on-accent: #0E0F13;
+  --sw-bg: #05070D;
+  --sw-ink: #F5F7FA;
+  --sw-ink-soft: #9AA3B2;
+  --sw-accent: #22D3EE;
+  --sw-font-display: "Bebas Neue", "Anton", Impact, "Arial Narrow", sans-serif;
+  --sw-font-body: "Montserrat", system-ui, sans-serif;
+  --jp-panel: #0F1320;
+  --jp-violet: #8B5CF6;
+  --jp-on-accent: #05070D;
   --jp-bar-h: 64px;
 }
 
 html, body { background: var(--sw-bg); color: var(--sw-ink); }
-/* O brilho padrão da engine tem um halo branco feito para fundo claro: no escuro vira mancha. */
-.sw-sky__glow { background: radial-gradient(60% 42% at 74% 16%, color-mix(in srgb, var(--sw-accent) 16%, transparent), transparent 70%); }
 body { font-family: var(--sw-font-body); -webkit-tap-highlight-color: transparent; }
+/* Céu: luz ciano de um lado e violeta do outro, como nos reels. (O halo branco da engine é
+   feito para fundo claro e vira mancha no escuro.) */
+.sw-sky__grad { background: var(--sw-bg); }
+.sw-sky__glow {
+  background:
+    radial-gradient(55% 40% at 0% 30%, color-mix(in srgb, var(--sw-accent) 22%, transparent), transparent 70%),
+    radial-gradient(55% 40% at 100% 70%, color-mix(in srgb, var(--jp-violet) 28%, transparent), transparent 70%);
+}
+.sw-pt--dot::before { background: radial-gradient(circle at 34% 30%, var(--sw-accent), transparent 80%); }
 
-/* ---- tema escuro sobre os componentes da engine ---- */
-.sw-copy__title { font-weight: 600; letter-spacing: -.02em; }
-.sw-btn { font-family: var(--sw-font-body); }
-.sw-btn--primary, .sw-topcta { background: var(--sw-accent); color: var(--jp-on-accent); }
+/* ---- título no estilo das capas ---- */
+.sw-copy__title {
+  position: relative; padding-left: 20px;
+  font-weight: 400; text-transform: uppercase; letter-spacing: .01em; line-height: .95;
+  font-size: clamp(2.7rem, 11.5vw, 3.8rem);
+}
+.sw-copy__title::before { /* barra vertical violeta→ciano */
+  content: ""; position: absolute; left: 0; top: .06em; bottom: .14em; width: 5px; border-radius: 3px;
+  background: linear-gradient(180deg, var(--jp-violet), var(--sw-accent));
+}
+.sw-copy__title::after { /* traço ciano "à mão" */
+  content: ""; display: block; width: min(78%, 300px); height: 16px; margin-top: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16'%3E%3Cpath d='M4 12 C 80 3, 190 1, 296 6' fill='none' stroke='%2322D3EE' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center / 100% 100%;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sw-accent) 60%, transparent));
+}
+.jp-hl { color: var(--sw-accent); text-shadow: 0 0 18px color-mix(in srgb, var(--sw-accent) 45%, transparent); }
+.sw-copy__eyebrow { font-family: var(--sw-font-body); font-weight: 700; letter-spacing: .12em; }
+.sw-copy__body { font-weight: 500; }
+
+/* Avatar do JP na primeira cena (foto real de estúdio, nunca gerada). O contador "01 / 04" sai dali. */
+.sw-copy:first-child .sw-copy__num { display: none; }
+.jp-avatar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.jp-avatar img {
+  width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 2px var(--sw-bg), 0 0 0 4px var(--sw-accent), 0 0 22px color-mix(in srgb, var(--jp-violet) 60%, transparent);
+}
+.jp-avatar span { font-weight: 700; font-size: .95rem; line-height: 1.25; }
+.jp-avatar small { display: block; font-weight: 500; color: var(--sw-ink-soft); font-size: .82rem; }
+
+/* ---- componentes da engine no tema ---- */
+.sw-btn { font-family: var(--sw-font-body); font-weight: 700; }
+.sw-btn--primary, .sw-topcta { background: var(--sw-accent); color: var(--jp-on-accent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--sw-accent) 35%, transparent); }
 .sw-btn--ghost { color: var(--sw-ink); border-color: color-mix(in srgb, var(--sw-ink) 30%, transparent); }
 .sw-copy__tags li {
   color: var(--sw-ink);
-  background: color-mix(in srgb, #fff 6%, transparent);
-  border-color: color-mix(in srgb, var(--sw-accent) 35%, transparent);
+  background: color-mix(in srgb, #fff 5%, transparent);
+  border-color: color-mix(in srgb, var(--sw-accent) 40%, transparent);
 }
-.sw-nav { background: color-mix(in srgb, var(--jp-panel) 70%, transparent); border-color: color-mix(in srgb, #fff 8%, transparent); }
+.sw-nav { background: color-mix(in srgb, var(--jp-panel) 75%, transparent); border-color: color-mix(in srgb, #fff 8%, transparent); }
 .sw-nav__item.is-active { color: var(--jp-on-accent); }
 .sw-route__label { color: var(--sw-ink); background: color-mix(in srgb, var(--jp-panel) 92%, transparent); }
 .sw-brand__mark { display: none; }
-.sw-brand__name { font-weight: 600; letter-spacing: -.01em; }
+.sw-brand__name { font-family: var(--sw-font-display); font-weight: 400; font-size: 1.5rem; letter-spacing: .03em; }
 .sw-brand__name::before {
-  content: "JP"; display: inline-grid; place-items: center; width: 30px; height: 30px; margin-right: 10px;
-  border-radius: 9px; font-size: .78rem; color: var(--jp-on-accent); background: var(--sw-accent);
-  vertical-align: middle;
+  content: "JP"; display: inline-grid; place-items: center; width: 32px; height: 32px; margin-right: 10px;
+  border-radius: 9px; font-size: 1.05rem; color: #fff; vertical-align: middle;
+  background: linear-gradient(135deg, var(--jp-violet), var(--sw-accent));
 }
 
 /* Bloco de texto rastreável: a engine o esconde ao montar. Sem JavaScript, ele é a página. */
@@ -76,7 +115,7 @@ body { font-family: var(--sw-font-body); -webkit-tap-highlight-color: transparen
   border: 1px solid color-mix(in srgb, #fff 8%, transparent);
 }
 .jp-links__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.jp-links__head h2 { font: 600 1.15rem/1.2 var(--sw-font-display); margin: 0; }
+.jp-links__head h2 { font: 400 1.7rem/1 var(--sw-font-display); letter-spacing: .03em; text-transform: uppercase; margin: 0; }
 .jp-links__close { width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
   background: color-mix(in srgb, #fff 8%, transparent); color: var(--sw-ink); font-size: 1.3rem; }
 .jp-links ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -106,7 +145,7 @@ body { font-family: var(--sw-font-body); -webkit-tap-highlight-color: transparen
 @media (min-width: 861px) {
   .jp-bar { display: none; }
   .sw-copy { translate: 0 -50%; max-height: calc(100dvh - 160px); }
-  .sw-copy__title { font-size: clamp(2rem, 3.3vw, 3rem); }
+  .sw-copy__title { font-size: clamp(3rem, 4.8vw, 4.6rem); }
   .sw-root { --jp-col-w: min(calc((100dvh - 48px) * 9 / 16), 44vw); }
   .sw-stage {
     inset: 24px max(6vw, calc(50vw - 560px)) 24px auto;

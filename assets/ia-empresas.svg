@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
-<defs><radialGradient id="g" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#60A5FA" stop-opacity=".55"/><stop offset="1" stop-color="#0E0F13"/></radialGradient></defs>
-<rect width="1080" height="1920" fill="#0E0F13"/><rect width="1080" height="1920" fill="url(#g)"/>
-<g fill="none" stroke="#60A5FA" stroke-opacity=".5" stroke-width="3">
+<defs><radialGradient id="g" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#22D3EE" stop-opacity=".55"/><stop offset="1" stop-color="#05070D"/></radialGradient></defs>
+<rect width="1080" height="1920" fill="#05070D"/><rect width="1080" height="1920" fill="url(#g)"/>
+<g fill="none" stroke="#22D3EE" stroke-opacity=".5" stroke-width="3">
 <path d="M540 520 L860 700 L540 880 L220 700 Z"/><path d="M220 700 L220 980 L540 1160 L540 880"/><path d="M860 700 L860 980 L540 1160"/></g>
 <text x="540" y="1380" fill="#F4F4F6" fill-opacity=".85" font-family="sans-serif" font-size="54" text-anchor="middle">03 · IA para empresas</text>
 <text x="540" y="1450" fill="#A1A1AA" font-family="sans-serif" font-size="34" text-anchor="middle">RASCUNHO · cena a gerar</text></svg>

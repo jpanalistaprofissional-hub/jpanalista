@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>JP Analista · IA para atendimento e vendas</title>
   <meta name="description" content="João Pedro Nunes, consultor de IA para atendimento e vendas. GustoBio para restaurantes, mentoria e consultoria de IA, GustoChat, sites e tráfego pago." />
-  <meta name="theme-color" content="#0E0F13" />
+  <meta name="theme-color" content="#05070D" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="JP Analista · IA para atendimento e vendas" />
   <meta property="og:description" content="Role e atravesse o que eu entrego: GustoBio, IA para empresas, sites e tráfego." />
   <meta property="og:url" content="https://jpanalista.com.br/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="bio.css" />
 </head>
 <body>
@@ -88,37 +88,54 @@
       diveScroll: 1.4,
       scrollMobileFactor: 1.2,
       sections: [
-        { id: 'chegada', label: 'Início', still: C(0, 'still', 'assets/chegada.svg'), poster: C(0, 'poster'), clip: C(0, 'clip'), accent: '#C084FC',
+        { id: 'chegada', label: 'Início', still: C(0, 'still', 'assets/chegada.svg'), poster: C(0, 'poster'), clip: C(0, 'clip'), accent: '#22D3EE',
           scroll: 1.2,
           eyebrow: 'JP Analista · IA Humanizada',
-          title: 'IA que atende e vende pela sua empresa.',
+          title: 'IA que atende e [[vende]] pela sua empresa.',
           body: 'Sou o João Pedro, consultor de IA para atendimento e vendas. Role para atravessar o que eu entrego, ou fale comigo agora.',
           cta: { primary: { label: 'Falar no WhatsApp', href: wa('geral') },
                  secondary: { label: 'Todos os links', href: '#links' } } },
-        { id: 'gustobio', label: 'GustoBio', still: C(1, 'still', 'assets/gustobio.svg'), poster: C(1, 'poster'), clip: C(1, 'clip'), accent: '#C084FC',
+        { id: 'gustobio', label: 'GustoBio', still: C(1, 'still', 'assets/gustobio.svg'), poster: C(1, 'poster'), clip: C(1, 'clip'), accent: '#22D3EE',
           scroll: 1.6, linger: 0.45,
           eyebrow: 'Para restaurantes',
-          title: 'Seu delivery atendendo sozinho no WhatsApp.',
+          title: 'Seu delivery [[atendendo sozinho]] no WhatsApp.',
           body: 'O GustoBio atende, anota o pedido e organiza a cozinha, do WhatsApp ao iFood e ao Quero Delivery.',
           tags: ['WhatsApp', 'iFood', 'Quero Delivery'],
           cta: { primary: { label: 'Quero o GustoBio', href: wa('gustobio') } } },
-        { id: 'ia', label: 'IA para empresas', still: C(2, 'still', 'assets/ia-empresas.svg'), poster: C(2, 'poster'), clip: C(2, 'clip'), accent: '#60A5FA',
+        { id: 'ia', label: 'IA para empresas', still: C(2, 'still', 'assets/ia-empresas.svg'), poster: C(2, 'poster'), clip: C(2, 'clip'), accent: '#22D3EE',
           scroll: 1.6, linger: 0.45,
           eyebrow: 'Para empresas',
-          title: 'Sua empresa com um time de IA.',
+          title: 'Sua empresa com um [[time de IA]].',
           body: 'Mentoria para começar do zero, consultoria para quem já usa IA e o GustoChat para atender no WhatsApp com agentes.',
           tags: ['Mentoria EstagIArio Prodígio', 'Consultoria de IA', 'GustoChat'],
           cta: { primary: { label: 'Conversar sobre IA', href: wa('ia') } } },
-        { id: 'sites', label: 'Sites e tráfego', still: C(3, 'still', 'assets/sites-trafego.svg'), poster: C(3, 'poster'), clip: C(3, 'clip'), accent: '#C084FC',
+        { id: 'sites', label: 'Sites e tráfego', still: C(3, 'still', 'assets/sites-trafego.svg'), poster: C(3, 'poster'), clip: C(3, 'clip'), accent: '#22D3EE',
           scroll: 1.6, linger: 0.4,
           eyebrow: 'Para aparecer e vender',
-          title: 'Sites que impressionam. Anúncios que trazem cliente.',
+          title: 'Sites que [[impressionam]]. Anúncios que trazem cliente.',
           body: 'Do link da bio ao site completo, como este que você acabou de atravessar, e o tráfego pago que leva gente até ele.',
           cta: { primary: { label: 'Quero um site assim', href: wa('site') },
                  secondary: { label: 'Falar de tráfego', href: wa('trafego') } } }
       ],
       connectors: []
     });
+
+    // ---- Identidade: palavra-chave em ciano ([[assim]]) e avatar real na 1ª cena ----
+    document.querySelectorAll('.sw-copy__title').forEach(function (t) {
+      var partes = t.textContent.split(/\[\[|\]\]/);   // a engine escapa o texto; o destaque entra aqui
+      t.textContent = '';
+      partes.forEach(function (p, k) {
+        if (k % 2) { var sp = document.createElement('span'); sp.className = 'jp-hl'; sp.textContent = p; t.appendChild(sp); }
+        else t.appendChild(document.createTextNode(p));
+      });
+    });
+    var primeira = document.querySelector('.sw-copy');
+    if (primeira) {
+      var av = document.createElement('div'); av.className = 'jp-avatar';
+      av.innerHTML = '<img src="assets/jp-avatar.webp" alt="João Pedro Nunes" width="56" height="56" />' +
+                     '<span>João Pedro Nunes<small>@jpanalista.com.br</small></span>';
+      primeira.insertBefore(av, primeira.querySelector('.sw-copy__eyebrow'));
+    }
 
     // ---- "Todos os links" e atalhos para cada cena ----
     var dlg = document.getElementById('links');

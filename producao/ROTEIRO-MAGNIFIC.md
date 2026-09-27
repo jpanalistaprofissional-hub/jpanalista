@@ -6,6 +6,13 @@ que sair ruim. O custo em créditos aparece na tela do Magnific antes de cada ge
 Os textos para colar estão **em inglês de propósito**: os modelos de imagem e vídeo obedecem melhor
 assim. Você não precisa entender o texto, só copiar e colar inteiro.
 
+## A direção de arte (revista em 27/09 pelas suas referências)
+
+Mundo escuro de tecnologia: fundo quase preto azulado, **neon ciano e violeta**, vidro escuro,
+hologramas e rede de nós, como na capa "Alquimista de IAs". **Você não aparece nos vídeos.** A sua
+foto real entra na página, no avatar da primeira cena, porque vídeo gerado por IA costuma deformar
+rosto no meio do movimento. Nas cenas, pessoas só como silhueta, sem rosto.
+
 ## Regras que valem para tudo
 
 - **Formato vertical 9:16** em todas as imagens e vídeos.
@@ -21,8 +28,8 @@ Gere **uma** imagem com o texto abaixo. Mande para mim antes de seguir. Se o est
 ajustamos o texto e você gera de novo. Errar aqui custa 1 geração; errar depois custaria 4.
 
 ```
-Premium isometric miniature diorama, soft matte clay and frosted glass materials, floating on a deep graphite background (#0E0F13), dramatic lilac rim light (#C084FC) from the right, subtle cool blue fill light (#60A5FA), tilt-shift depth of field, cinematic, calm, high-end tech brand mood. Vertical 9:16 composition, main subject centered, empty space above and below. No text, no letters, no numbers, no logos, no readable screens.
-Subject: a small consultant's studio on a floating island — a clean desk with an open laptop releasing soft glowing chat bubbles that rise like lanterns, a thin lilac neon ring hovering above the desk, and a tall glowing lilac doorway at the back of the island leading onward.
+Cinematic futuristic tech world at night, deep navy-black environment (#05070D), glossy black glass and dark brushed metal surfaces, electric cyan neon light (#22D3EE) and deep violet neon light (#8B5CF6) as rim lights and volumetric glow, floating holographic panels with abstract shapes only, thin glowing network lines with bright nodes, subtle light particles, shallow depth of field, high-end, moody, photorealistic 3D render. Vertical 9:16 composition, main subject centered. No text, no letters, no numbers, no logos, no readable screens, no human faces.
+Subject: a dark creator studio command center — a desk with three monitors glowing with abstract code shapes, a gaming PC with cyan and violet fan lights, a holographic ring of connected network nodes orbiting above an empty chair, and a tall glowing cyan-to-violet portal in the back wall leading onward.
 ```
 
 ## Passo 2 — Cenas 2, 3 e 4 (depois do meu ok na cena 1)
@@ -32,20 +39,20 @@ quatro parecerem o mesmo mundo. O começo do texto é igual ao da cena 1; muda s
 
 **Cena 2 — GustoBio**
 ```
-Premium isometric miniature diorama, soft matte clay and frosted glass materials, floating on a deep graphite background (#0E0F13), dramatic lilac rim light (#C084FC) from the right, subtle cool blue fill light (#60A5FA), tilt-shift depth of field, cinematic, calm, high-end tech brand mood. Vertical 9:16 composition, main subject centered, empty space above and below. No text, no letters, no numbers, no logos, no readable screens.
-Subject: a cozy miniature restaurant kitchen with a delivery counter — paper order tickets flying from a giant glowing smartphone into the kitchen, tiny faceless clay cooks at the stove, warm food steam, a small delivery scooter waiting at the front door, and a tall glowing lilac doorway at the back leading onward.
+Cinematic futuristic tech world at night, deep navy-black environment (#05070D), glossy black glass and dark brushed metal surfaces, electric cyan neon light (#22D3EE) and deep violet neon light (#8B5CF6) as rim lights and volumetric glow, floating holographic panels with abstract shapes only, thin glowing network lines with bright nodes, subtle light particles, shallow depth of field, high-end, moody, photorealistic 3D render. Vertical 9:16 composition, main subject centered. No text, no letters, no numbers, no logos, no readable screens, no human faces.
+Subject: a sleek dark restaurant kitchen at night — a large floating smartphone hologram sending glowing order cards into the kitchen, steam rising through cyan light, cooks seen only as dark silhouettes from behind, a delivery scooter at the open door with violet rim light, and a tall glowing cyan-to-violet portal at the back leading onward.
 ```
 
 **Cena 3 — IA para empresas**
 ```
-Premium isometric miniature diorama, soft matte clay and frosted glass materials, floating on a deep graphite background (#0E0F13), dramatic lilac rim light (#C084FC) from the right, subtle cool blue fill light (#60A5FA), tilt-shift depth of field, cinematic, calm, high-end tech brand mood. Vertical 9:16 composition, main subject centered, empty space above and below. No text, no letters, no numbers, no logos, no readable screens.
-Subject: a miniature open-floor office building cut open like a dollhouse — small friendly faceless robot assistants working at desks beside tiny faceless clay people, thin glowing lilac lines connecting every desk like a network, and a tall glowing lilac doorway at the back leading onward.
+Cinematic futuristic tech world at night, deep navy-black environment (#05070D), glossy black glass and dark brushed metal surfaces, electric cyan neon light (#22D3EE) and deep violet neon light (#8B5CF6) as rim lights and volumetric glow, floating holographic panels with abstract shapes only, thin glowing network lines with bright nodes, subtle light particles, shallow depth of field, high-end, moody, photorealistic 3D render. Vertical 9:16 composition, main subject centered. No text, no letters, no numbers, no logos, no readable screens, no human faces.
+Subject: a dark futuristic operations room — translucent AI agents shaped like human silhouettes made of cyan light, with no faces, working at glass desks, glowing message cards floating between them, network lines linking every desk, and a tall glowing cyan-to-violet portal at the back leading onward.
 ```
 
 **Cena 4 — Sites e tráfego**
 ```
-Premium isometric miniature diorama, soft matte clay and frosted glass materials, floating on a deep graphite background (#0E0F13), dramatic lilac rim light (#C084FC) from the right, subtle cool blue fill light (#60A5FA), tilt-shift depth of field, cinematic, calm, high-end tech brand mood. Vertical 9:16 composition, main subject centered, empty space above and below. No text, no letters, no numbers, no logos, no readable screens.
-Subject: a giant smartphone standing upright as a glowing storefront portal in a miniature city square, its screen showing only abstract soft shapes of a website, glowing paths of tiny cars and tiny faceless clay people flowing toward it from every street.
+Cinematic futuristic tech world at night, deep navy-black environment (#05070D), glossy black glass and dark brushed metal surfaces, electric cyan neon light (#22D3EE) and deep violet neon light (#8B5CF6) as rim lights and volumetric glow, floating holographic panels with abstract shapes only, thin glowing network lines with bright nodes, subtle light particles, shallow depth of field, high-end, moody, photorealistic 3D render. Vertical 9:16 composition, main subject centered. No text, no letters, no numbers, no logos, no readable screens, no human faces.
+Subject: a giant glowing smartphone standing like a neon monolith in a dark futuristic city plaza, its screen showing only abstract soft shapes of a website, streams of cyan and violet light particles flowing along the streets into it like traffic, neon reflections on wet ground.
 ```
 
 Olhe as quatro lado a lado. Precisam parecer o **mesmo mundo**: mesmo ângulo, mesmas cores, mesma
@@ -64,22 +71,22 @@ Cada voo **começa numa cena e termina na seguinte**. É isso que faz a câmera 
 
 **voo1**
 ```
-Single continuous cinematic camera move, no cuts. The camera glides slowly forward across the consultant's studio, drifting past the laptop and the rising chat bubbles, then continues forward through the glowing lilac doorway and arrives at the miniature restaurant kitchen, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same miniature diorama style and lighting throughout. No text.
+Single continuous cinematic camera move, no cuts. The camera glides slowly forward across the dark creator studio, drifting past the glowing monitors and the orbiting ring of network nodes, then continues forward through the glowing cyan-violet portal and arrives at the dark restaurant kitchen, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same cinematic neon style and lighting throughout. No text.
 ```
 
 **voo2**
 ```
-Single continuous cinematic camera move, no cuts. The camera glides slowly forward through the miniature restaurant kitchen, drifting past the flying order tickets and the steaming stove, then continues forward through the glowing lilac doorway and arrives at the miniature open office with robot assistants, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same miniature diorama style and lighting throughout. No text.
+Single continuous cinematic camera move, no cuts. The camera glides slowly forward through the dark restaurant kitchen, drifting past the glowing order cards and the steam in cyan light, then continues forward through the glowing cyan-violet portal and arrives at the operations room with AI agents of light, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same cinematic neon style and lighting throughout. No text.
 ```
 
 **voo3**
 ```
-Single continuous cinematic camera move, no cuts. The camera glides slowly forward through the miniature open office, drifting past the robot assistants and the glowing network lines, then continues forward through the glowing lilac doorway and arrives at the miniature city square with the giant smartphone portal, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same miniature diorama style and lighting throughout. No text.
+Single continuous cinematic camera move, no cuts. The camera glides slowly forward through the operations room, drifting past the AI agents of light and the floating message cards, then continues forward through the glowing cyan-violet portal and arrives at the city plaza with the giant neon smartphone, landing exactly on the final frame. The camera only moves forward: never pulls back, never cuts, never fades. Smooth, slow, steady. Same cinematic neon style and lighting throughout. No text.
 ```
 
 **voo4** (sem quadro final)
 ```
-Single continuous cinematic camera move, no cuts. The camera glides slowly forward toward the giant glowing smartphone portal in the miniature city square, gently arcing a little to reveal the paths of tiny cars and people flowing into it, then settles into a slow, steady forward drift for the final second. Never pulls back, never cuts. Smooth, slow, steady. Same miniature diorama style and lighting throughout. No text.
+Single continuous cinematic camera move, no cuts. The camera glides slowly forward toward the giant neon smartphone in the dark city plaza, gently arcing a little to reveal the streams of light flowing into it and the reflections on the wet ground, then settles into a slow, steady forward drift for the final second. Never pulls back, never cuts. Smooth, slow, steady. Same cinematic neon style and lighting throughout. No text.
 ```
 
 **Antes de aceitar cada voo, confira duas coisas:**

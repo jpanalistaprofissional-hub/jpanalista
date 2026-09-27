@@ -1,0 +1,16 @@
+# Regra sugerida para a raiz de jpanalista.com.br (hospedagem Hostinger).
+# NÃO envie este arquivo como .htaccess se já existir um na raiz: junte as linhas abaixo ao existente.
+#
+# Por quê: sem isso, quem já visitou o site continua vendo a versão antiga do index.html
+# depois de uma atualização (lição já paga em outro site hospedado na Hostinger).
+
+<IfModule mod_headers.c>
+  # HTML, CSS e JS (sem hash no nome): o navegador sempre confere se há versão nova.
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  # Vídeos e imagens: podem ficar guardados por 7 dias.
+  <FilesMatch "\.(mp4|webp|svg|png|jpg)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>JP Analista · IA para atendimento e vendas</title>
+  <meta name="description" content="João Pedro Nunes, consultor de IA para atendimento e vendas. GustoBio para restaurantes, mentoria e consultoria de IA, GustoChat, sites e tráfego pago." />
+  <meta name="theme-color" content="#0E0F13" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JP Analista · IA para atendimento e vendas" />
+  <meta property="og:description" content="Role e atravesse o que eu entrego: GustoBio, IA para empresas, sites e tráfego." />
+  <meta property="og:url" content="https://jpanalista.com.br/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="bio.css" />
+</head>
+<body>
+  <div id="top"></div>
+  <div id="world">
+    <!-- Texto rastreável (Google, prévia de link, quem está sem JavaScript).
+         Espelha o texto das cenas. A engine esconde este bloco ao montar. -->
+    <section data-sw-seo>
+      <h1>IA que atende e vende pela sua empresa.</h1>
+      <p>Sou o João Pedro, da JP Analista: consultor de IA para atendimento e vendas, com o método IA Humanizada.</p>
+      <h2>GustoBio — seu delivery atendendo sozinho no WhatsApp</h2>
+      <p>Para restaurantes: atendimento, pedidos e cozinha organizados, do WhatsApp ao iFood e ao Quero Delivery.</p>
+      <h2>IA para empresas — mentoria, consultoria e GustoChat</h2>
+      <p>Mentoria EstagIArio Prodígio para começar do zero, consultoria para quem já usa IA e o GustoChat para atender no WhatsApp com agentes.</p>
+      <h2>Sites e tráfego — sites que impressionam, anúncios que trazem cliente</h2>
+      <p>Do link da bio ao site completo, e o tráfego pago que leva gente até ele.</p>
+      <p>
+        <a data-wa="geral" href="https://wa.me/5583991372862">Falar no WhatsApp</a> ·
+        <a href="https://www.instagram.com/jpanalista.com.br/">Instagram</a> ·
+        <a href="/cliente/">Área do cliente</a>
+      </p>
+    </section>
+  </div>
+
+  <!-- Barra fixa do celular: o WhatsApp está a um toque desde o primeiro segundo. -->
+  <nav class="jp-bar" aria-label="Atalhos">
+    <a class="jp-bar__btn jp-bar__btn--primary" data-wa="geral" href="https://wa.me/5583991372862">Falar no WhatsApp</a>
+    <button class="jp-bar__btn" type="button" data-open-links>Todos os links</button>
+  </nav>
+
+  <!-- Lista clássica de link da bio, para quem não quer rolar. -->
+  <dialog class="jp-links" id="links" aria-labelledby="links-titulo">
+    <div class="jp-links__sheet">
+      <div class="jp-links__head">
+        <h2 id="links-titulo">Todos os links</h2>
+        <button class="jp-links__close" type="button" data-close-links aria-label="Fechar">×</button>
+      </div>
+      <ul>
+        <li><a class="jp-links__item jp-links__item--primary" data-wa="geral" href="https://wa.me/5583991372862">Falar no WhatsApp<small>Conversa direta com o João Pedro</small></a></li>
+        <li><button class="jp-links__item" type="button" data-jump="1">GustoBio<small>Para restaurantes e delivery</small></button></li>
+        <li><button class="jp-links__item" type="button" data-jump="2">Mentoria, consultoria e GustoChat<small>Para empresas que querem IA de verdade</small></button></li>
+        <li><button class="jp-links__item" type="button" data-jump="3">Sites e tráfego pago<small>Para aparecer e vender</small></button></li>
+        <li><a class="jp-links__item" href="https://www.instagram.com/jpanalista.com.br/">Instagram<small>@jpanalista.com.br</small></a></li>
+        <li><a class="jp-links__item" href="/cliente/">Área do cliente<small>Contratos e documentos</small></a></li>
+      </ul>
+    </div>
+  </dialog>
+
+  <script src="scrub-engine.js"></script>
+  <script>
+    // ---- Um lugar só para o número e as mensagens prontas do WhatsApp ----
+    var WHATSAPP = '5583991372862'; // ⚠️ confirmar com o JP antes de publicar
+    var MSG = {
+      geral: 'Olá, João Pedro! Vim pelo seu Instagram.',
+      gustobio: 'Olá, João Pedro! Vim pelo Instagram e quero saber do GustoBio para o meu restaurante.',
+      ia: 'Olá, João Pedro! Vim pelo Instagram e quero conversar sobre IA na minha empresa.',
+      site: 'Olá, João Pedro! Vim pelo Instagram e quero um site como o seu.',
+      trafego: 'Olá, João Pedro! Vim pelo Instagram e quero falar sobre tráfego pago.'
+    };
+    function wa(chave) { return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(MSG[chave] || MSG.geral); }
+    document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = wa(a.getAttribute('data-wa')); });
+
+    // Cenas: por enquanto só rascunhos (SVG 9:16). Quando os vídeos existirem, cada cena
+    // ganha clip/clipMobile/poster/posterMobile (skill scroll-world, passos 6 e 7).
+    mountScrollWorld(document.getElementById('world'), {
+      brand: { name: 'JP Analista', href: '#top' },
+      cta: { label: 'Falar no WhatsApp', href: wa('geral') },
+      hint: 'role para atravessar',
+      nav: true,
+      diveScroll: 1.4,
+      scrollMobileFactor: 1.2,
+      sections: [
+        { id: 'chegada', label: 'Início', still: 'assets/chegada.svg', accent: '#C084FC',
+          scroll: 1.2,
+          eyebrow: 'JP Analista · IA Humanizada',
+          title: 'IA que atende e vende pela sua empresa.',
+          body: 'Sou o João Pedro, consultor de IA para atendimento e vendas. Role para atravessar o que eu entrego, ou fale comigo agora.',
+          cta: { primary: { label: 'Falar no WhatsApp', href: wa('geral') },
+                 secondary: { label: 'Todos os links', href: '#links' } } },
+        { id: 'gustobio', label: 'GustoBio', still: 'assets/gustobio.svg', accent: '#C084FC',
+          scroll: 1.6, linger: 0.45,
+          eyebrow: 'Para restaurantes',
+          title: 'Seu delivery atendendo sozinho no WhatsApp.',
+          body: 'O GustoBio atende, anota o pedido e organiza a cozinha, do WhatsApp ao iFood e ao Quero Delivery.',
+          tags: ['WhatsApp', 'iFood', 'Quero Delivery'],
+          cta: { primary: { label: 'Quero o GustoBio', href: wa('gustobio') } } },
+        { id: 'ia', label: 'IA para empresas', still: 'assets/ia-empresas.svg', accent: '#60A5FA',
+          scroll: 1.6, linger: 0.45,
+          eyebrow: 'Para empresas',
+          title: 'Sua empresa com um time de IA.',
+          body: 'Mentoria para começar do zero, consultoria para quem já usa IA e o GustoChat para atender no WhatsApp com agentes.',
+          tags: ['Mentoria EstagIArio Prodígio', 'Consultoria de IA', 'GustoChat'],
+          cta: { primary: { label: 'Conversar sobre IA', href: wa('ia') } } },
+        { id: 'sites', label: 'Sites e tráfego', still: 'assets/sites-trafego.svg', accent: '#C084FC',
+          scroll: 1.6, linger: 0.4,
+          eyebrow: 'Para aparecer e vender',
+          title: 'Sites que impressionam. Anúncios que trazem cliente.',
+          body: 'Do link da bio ao site completo, como este que você acabou de atravessar, e o tráfego pago que leva gente até ele.',
+          cta: { primary: { label: 'Quero um site assim', href: wa('site') },
+                 secondary: { label: 'Falar de tráfego', href: wa('trafego') } } }
+      ],
+      connectors: []
+    });
+
+    // ---- "Todos os links" e atalhos para cada cena ----
+    var dlg = document.getElementById('links');
+    function abrir() { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+    function fechar() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-open-links], a[href="#links"]');
+      if (t) { e.preventDefault(); abrir(); return; }
+      if (e.target.closest('[data-close-links]') || e.target === dlg) { fechar(); return; }
+      var j = e.target.closest('[data-jump]');
+      if (j) {
+        fechar();
+        var dot = document.querySelectorAll('.sw-route__dot')[+j.getAttribute('data-jump')];
+        if (dot) dot.click(); // a engine rola até o meio da cena
+      }
+    });
+  </script>
+</body>
+</html>

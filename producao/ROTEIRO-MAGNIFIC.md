@@ -1,5 +1,7 @@
 # Roteiro de geração no Magnific — bio jpanalista.com.br
 
+> ⚠️ **Substituído em 02/10 pelo `ROTEIRO-PASSAGEM.md`** (a ideia do JP: a câmera passa por ele e segue pelo escritório). Fica aqui só como histórico.
+
 Nível **Lean**: 4 imagens + 4 vídeos = **8 gerações**. Separe uma reserva de mais 2 para refazer o
 que sair ruim. O custo em créditos aparece na tela do Magnific antes de cada geração.
 

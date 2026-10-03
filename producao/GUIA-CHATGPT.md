@@ -49,12 +49,26 @@ com salto. Por isso:
 
 **Saldo do JP em 02/10:** 17.809 créditos (plano Premium, 20.000 por ciclo).
 
-⚠️ **Gere direto em 720p.** A página usa vídeo 720x1280, então 1080p não traz ganho. E as contas:
-- 4 trechos em 720p = **8.800**, mais 2 ou 3 refações = **13.200 a 15.400**. Cabe no saldo.
-- Rascunho + finalizar em 1080p = 4 × (1.000 + ~3.950) = **~19.800**. **Estoura o saldo.**
-- Não use rascunho e depois gere "de novo" em 720p: é outro sorteio, sai outro vídeo.
+⚠️ **Atualizado em 03/10: 720p foi descartado pelo JP** (resolução baixa no celular). Agora é **1080p**.
+Medido no Magnific em 03/10, saldo **15.609** depois do trecho 1:
 
-**Configurações de cada trecho:** modelo Seedance 2.5 · duração 5 s · proporção 9:16 · resolução 720p ·
+| Caminho, por trecho de 5 s | Créditos |
+|---|---|
+| Gerar direto em 1080p | 3.950 |
+| Gerar em 720p e depois ampliar (Magnific Precision, 1080 de largura) | 2.200 + 2.297 = 4.497 |
+| Só ampliar um trecho que já existe | 2.297 |
+
+- **Trecho 1 (já existe em 720p):** ampliar com **Magnific Precision** (`video_upscale`, `mode: magnific_precision`,
+  `targetResolution: 1080`) = 2.297. É o modo fiel: não inventa detalhe nem mexe no rosto. **Não use o modo
+  Creative no trecho do JP.**
+- **Trechos 2, 3 e 4:** gerar **direto em 1080p** = 3 × 3.950 = 11.850.
+- **Total: 14.147. Sobram ~1.460: não há folga para refazer nenhum trecho.** Antes de gerar, o JP decide entre:
+  (a) seguir assim, sem refação; (b) esperar a renovação dos créditos do plano; (c) comprar créditos extras;
+  (d) fazer 3 trechos em vez de 4.
+- Ampliar e depois gerar o próximo: o quadro inicial do trecho 2 sai do **vídeo ampliado** (último quadro),
+  para a emenda casar na resolução final.
+
+**Configurações de cada trecho:** modelo Seedance 2.5 · duração 5 s · proporção 9:16 · resolução 1080p ·
 sem efeitos sonoros · quadro inicial preenchido · quadro final vazio. **Anote a "seed" de cada trecho aprovado.**
 
 ## 5. Os 4 trechos (textos para colar)
@@ -126,13 +140,13 @@ ffmpeg -i trecho1-ultimo.png -i trecho2-primeiro.png -lavfi ssim -f null -
 No repositório `jpanalista`:
 1. Salve os vídeos como `producao/brutos/voo1.mp4` … `voo4.mp4` e um quadro de cada como `cena1.png` … `cena4.png`.
 2. Rode `node producao/processar.mjs` (precisa de ffmpeg; aceita `FFMPEG=/caminho/do/ffmpeg`). Ele converte para
-   720x1280 com quadro-chave a cada 4, tira os pôsteres, mede as 3 emendas e grava `assets/cenas.js`.
+   1080x1920 com quadro-chave a cada 4, tira os pôsteres, mede as 3 emendas e grava `assets/cenas.js`.
 3. A página troca sozinha dos rascunhos para os vídeos reais.
 4. Rode o teste de layout: `python3 -m http.server 8765` e, noutra aba, `node testes/layout.js`.
 
 Sem Node, o equivalente manual de cada vídeo é:
 ```bash
-ffmpeg -i voo1.mp4 -an -vf "scale=720:-2,unsharp=5:5:0.6:5:5:0.0" -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -g 4 -keyint_min 4 -sc_threshold 0 -movflags +faststart assets/vid/cena1.mp4
+ffmpeg -i voo1.mp4 -an -vf "scale=1080:-2:flags=lanczos,unsharp=5:5:0.6:5:5:0.0" -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -g 4 -keyint_min 4 -sc_threshold 0 -movflags +faststart assets/vid/cena1.mp4
 ffmpeg -ss 0 -i assets/vid/cena1.mp4 -frames:v 1 -q:v 3 assets/cena1-poster.jpg
 ```
 e `assets/cenas.js` fica:

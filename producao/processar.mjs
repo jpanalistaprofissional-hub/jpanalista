@@ -6,7 +6,7 @@
 //   producao/brutos/voo1.mp4  … voo4.mp4
 // Saída:
 //   assets/cenaN.jpg          imagem da cena (usada se o celular estiver em modo economia)
-//   assets/vid/cenaN.mp4      vídeo 1080x1920 (LARGURA=…), sem som, quadro-chave a cada 4 (rolagem lisa no celular)
+//   assets/vid/cenaN.mp4      vídeo 1080x1920 sempre (LARGURA=…), sem som, quadro-chave a cada 4 (rolagem lisa no celular)
 //   assets/cenaN-poster.jpg   1º quadro do vídeo já convertido (troca imagem→vídeo sem salto)
 //   assets/cenas.js           a página passa a usar as cenas reais
 // E mede cada emenda (último quadro do voo N × primeiro do voo N+1) com SSIM:
@@ -33,6 +33,8 @@ const N = fs.existsSync(path.join(RAIZ, 'producao', 'brutos'))
 const PASSA = 0.90, AVISO = 0.75;
 // Largura final dos vídeos e imagens (1080 = 1080x1920). O JP descartou 720p em 03/10: fica baixo no celular.
 const LARGURA = parseInt(process.env.LARGURA || '1080', 10);
+// Altura fixa em 9:16: o Magnific às vezes entrega 1080x1918, e a emenda só se mede com tamanhos iguais.
+const ALTURA = Math.round(LARGURA * 16 / 9 / 2) * 2;
 
 function ff(args, { verboso = false } = {}) {
   const r = spawnSync(FF, ['-hide_banner', '-v', verboso ? 'info' : 'error', '-y', ...args], { encoding: 'utf8' });
@@ -69,8 +71,8 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'bio-emendas-'));
 
 // 2) Converter cada cena e cada voo.
 for (const { i, cena, voo } of brutos) {
-  ff(['-i', cena, '-vf', `scale=${LARGURA}:-2`, '-q:v', '3', path.join(ASSETS, `cena${i}.jpg`)]);
-  ff(['-i', voo, '-an', '-vf', `scale=${LARGURA}:-2:flags=lanczos,unsharp=5:5:0.6:5:5:0.0`,
+  ff(['-i', cena, '-vf', `scale=${LARGURA}:${ALTURA}`, '-q:v', '3', path.join(ASSETS, `cena${i}.jpg`)]);
+  ff(['-i', voo, '-an', '-vf', `scale=${LARGURA}:${ALTURA}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0`,
       '-c:v', 'libx264', '-preset', 'slow', '-crf', '23', '-pix_fmt', 'yuv420p',
       '-g', '4', '-keyint_min', '4', '-sc_threshold', '0', '-movflags', '+faststart',
       path.join(VID, `cena${i}.mp4`)]);

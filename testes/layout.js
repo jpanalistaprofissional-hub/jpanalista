@@ -64,7 +64,7 @@ const inter = (a, b) => a && b && !(a.right <= b.left || b.right <= a.left || a.
     const depois = await page.evaluate(() => ({ aberto: document.getElementById('links').open,
       titulo: [...document.querySelectorAll('.sw-copy')].find(c => +getComputedStyle(c).opacity > 0.5)?.querySelector('.sw-copy__title').textContent }));
     const wa = await page.evaluate(() => document.querySelector('.jp-bar [data-wa]').href);
-    const okLinks = abriu && !depois.aberto && /no automático/.test(depois.titulo || '');
+    const okLinks = abriu && !depois.aberto && /app agêntico do delivery/.test(depois.titulo || '');
     if (!okLinks) falhas++;
     if (erros.length) falhas++;
     console.log(`${p.nome} | lista de links abre: ${abriu} · pula para "${depois.titulo}" e fecha: ${!depois.aberto} ${okLinks ? '✅' : '❌'} | erros no console: ${erros.length ? erros.join(' / ') : 'nenhum'}`);

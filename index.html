@@ -76,7 +76,7 @@
     document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = wa(a.getAttribute('data-wa')); });
 
     // Cena i: usa o que producao/processar.mjs gerou (assets/cenas.js); senão, o rascunho SVG.
-    // Um encode só (720x1280) serve celular e a coluna do computador, por isso não há clipMobile.
+    // clipMobile = mesmo vídeo com todo quadro como chave (só celular, rolagem mais lisa).
     function C(i, chave, padrao) { var c = window.CENAS && window.CENAS[i]; return (c && c[chave]) || padrao; }
     mountScrollWorld(document.getElementById('world'), {
       brand: { name: 'JP Analista', href: '#top' },
@@ -86,14 +86,14 @@
       diveScroll: 1.4,
       scrollMobileFactor: 1.2,
       sections: [
-        { id: 'chegada', label: 'Início', still: C(0, 'still', 'assets/chegada.svg'), poster: C(0, 'poster'), clip: C(0, 'clip'), accent: '#22D3EE',
+        { id: 'chegada', label: 'Início', still: C(0, 'still', 'assets/chegada.svg'), poster: C(0, 'poster'), clip: C(0, 'clip'), clipMobile: C(0, 'clipMobile'), accent: '#22D3EE',
           scroll: 1.2,
           eyebrow: 'JP Analista · Orquestrador de IA',
           title: 'IA que [[trabalha]] pelo seu negócio.',
           body: 'Sou o João Pedro: orquestro IA para negócios, com mais de 500 processos já automatizados, e gerencio anúncios em várias plataformas. Role para ver o que eu entrego.',
           cta: { primary: { label: 'Falar no WhatsApp', href: wa('geral') },
                  secondary: { label: 'Todos os links', href: '#links' } } },
-        { id: 'entrega', label: 'GustoBio e mentoria', still: C(1, 'still', 'assets/ia-empresas.svg'), poster: C(1, 'poster'), clip: C(1, 'clip'), accent: '#22D3EE',
+        { id: 'entrega', label: 'GustoBio e mentoria', still: C(1, 'still', 'assets/ia-empresas.svg'), poster: C(1, 'poster'), clip: C(1, 'clip'), clipMobile: C(1, 'clipMobile'), accent: '#22D3EE',
           scroll: 1.6, linger: 0.45,
           eyebrow: 'Delivery e mentoria',
           title: 'GustoBio: o app [[agêntico]] do delivery.',
@@ -101,7 +101,7 @@
           tags: ['GustoBio · Agentic app Delivery', 'Mentoria Além da Maestria'],
           cta: { primary: { label: 'Quero o GustoBio', href: wa('gustobio') },
                  secondary: { label: 'Quero a mentoria', href: wa('mentoria') } } },
-        { id: 'sites', label: 'Sites e automações', still: C(2, 'still', 'assets/sites-trafego.svg'), poster: C(2, 'poster'), clip: C(2, 'clip'), accent: '#22D3EE',
+        { id: 'sites', label: 'Sites e automações', still: C(2, 'still', 'assets/sites-trafego.svg'), poster: C(2, 'poster'), clip: C(2, 'clip'), clipMobile: C(2, 'clipMobile'), accent: '#22D3EE',
           scroll: 1.6, linger: 0.4,
           eyebrow: 'Para a sua empresa',
           title: 'Sites e processos que [[rodam]] com IA.',

@@ -6,7 +6,8 @@
 //   producao/brutos/voo1.mp4  … voo4.mp4
 // Saída:
 //   assets/cenaN.jpg          imagem da cena (usada se o celular estiver em modo economia)
-//   assets/vid/cenaN.mp4      vídeo 1080x1920 sempre (LARGURA=…), sem som, quadro-chave a cada 4 (rolagem lisa no celular)
+//   assets/vid/cenaN.mp4      vídeo 1080x1920 sempre (LARGURA=…), sem som, quadro-chave a cada 4 (computador e tablet)
+//   assets/vid/cenaN-m.mp4    mesmo vídeo, todo quadro é chave (celular: rolagem lisa)
 //   assets/cenaN-poster.jpg   1º quadro do vídeo já convertido (troca imagem→vídeo sem salto)
 //   assets/cenas.js           a página passa a usar as cenas reais
 // E mede cada emenda (último quadro do voo N × primeiro do voo N+1) com SSIM:
@@ -76,6 +77,12 @@ for (const { i, cena, voo } of brutos) {
       '-c:v', 'libx264', '-preset', 'slow', '-crf', '23', '-pix_fmt', 'yuv420p',
       '-g', '4', '-keyint_min', '4', '-sc_threshold', '0', '-movflags', '+faststart',
       path.join(VID, `cena${i}.mp4`)]);
+  // Versão do celular: todo quadro é quadro-chave. Gravação do JP no Instagram (Android, 20/10) mostrou o vídeo
+  // trocando só 8–16 vezes por segundo na rolagem: com -g 4 o aparelho decodifica até 4 quadros 1080p a cada passo.
+  ff(['-i', voo, '-an', '-vf', `scale=${LARGURA}:${ALTURA}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0`,
+      '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-pix_fmt', 'yuv420p',
+      '-g', '1', '-keyint_min', '1', '-sc_threshold', '0', '-movflags', '+faststart',
+      path.join(VID, `cena${i}-m.mp4`)]);
   ff(['-ss', '0', '-i', path.join(VID, `cena${i}.mp4`), '-frames:v', '1', '-q:v', '3',
       path.join(ASSETS, `cena${i}-poster.jpg`)]);
   console.log(`cena ${i}: convertida`);
@@ -102,6 +109,7 @@ const cenas = brutos.map(({ i }) => ({
   still: `assets/cena${i}.jpg`,
   poster: `assets/cena${i}-poster.jpg`,
   clip: `assets/vid/cena${i}.mp4`,
+  clipMobile: `assets/vid/cena${i}-m.mp4`,
 }));
 fs.writeFileSync(path.join(ASSETS, 'cenas.js'),
   '// Gerado por producao/processar.mjs. Não editar à mão.\n' +

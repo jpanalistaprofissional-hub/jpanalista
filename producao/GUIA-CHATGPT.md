@@ -175,7 +175,7 @@ sites e tráfego; se o JP aprovar a tabela acima, troque a ordem das seções 2 
 
 1. Ordem das seções (tabela acima).
 2. Preço na bio? Hoje: sem preço, só "fale comigo".
-3. Número do WhatsApp: está `5583991372862` em `index.html` (constante `WHATSAPP`). Confirmar.
+3. Número do WhatsApp: `5575992990632` em `index.html` (constante `WHATSAPP`), confirmado pelo JP em 20/10.
 4. Para onde vai a página que hoje abre em jpanalista.com.br (sugestão: `/consultoria/`).
 5. Frase de marca: "consultor de IA para atendimento e vendas" (atual) ou "O Alquimista de IAs".
 

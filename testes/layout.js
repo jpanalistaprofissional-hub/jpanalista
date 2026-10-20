@@ -59,12 +59,12 @@ const inter = (a, b) => a && b && !(a.right <= b.left || b.right <= a.left || a.
     const abriu = await page.evaluate(() => { const b = document.querySelector(innerWidth > 860 ? '.sw-copy__cta a[href="#links"]' : '[data-open-links]'); b.click(); return document.getElementById('links').open; });
     await page.waitForTimeout(250);
     await page.screenshot({ path: `${OUT}/${p.nome}-links.png` });
-    await page.evaluate(() => document.querySelector('[data-jump="2"]').click());
+    await page.evaluate(() => document.querySelector('[data-jump="1"]').click());
     await page.waitForTimeout(1500);
     const depois = await page.evaluate(() => ({ aberto: document.getElementById('links').open,
       titulo: [...document.querySelectorAll('.sw-copy')].find(c => +getComputedStyle(c).opacity > 0.5)?.querySelector('.sw-copy__title').textContent }));
     const wa = await page.evaluate(() => document.querySelector('.jp-bar [data-wa]').href);
-    const okLinks = abriu && !depois.aberto && /time de IA/.test(depois.titulo || '');
+    const okLinks = abriu && !depois.aberto && /no automático/.test(depois.titulo || '');
     if (!okLinks) falhas++;
     if (erros.length) falhas++;
     console.log(`${p.nome} | lista de links abre: ${abriu} · pula para "${depois.titulo}" e fecha: ${!depois.aberto} ${okLinks ? '✅' : '❌'} | erros no console: ${erros.length ? erros.join(' / ') : 'nenhum'}`);

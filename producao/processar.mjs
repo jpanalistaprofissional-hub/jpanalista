@@ -26,7 +26,10 @@ const RAIZ = process.env.RAIZ || path.resolve(path.dirname(fileURLToPath(import.
 const BRUTOS = path.join(RAIZ, 'producao', 'brutos');
 const ASSETS = path.join(RAIZ, 'assets');
 const VID = path.join(ASSETS, 'vid');
-const N = 4;
+// Quantos trechos: conta os voo*.mp4 em producao/brutos (3 desde 20/10, por crédito).
+const N = fs.existsSync(path.join(RAIZ, 'producao', 'brutos'))
+  ? fs.readdirSync(path.join(RAIZ, 'producao', 'brutos')).filter(f => /^voo\d+\.mp4$/.test(f)).length || 4
+  : 4;
 const PASSA = 0.90, AVISO = 0.75;
 // Largura final dos vídeos e imagens (1080 = 1080x1920). O JP descartou 720p em 03/10: fica baixo no celular.
 const LARGURA = parseInt(process.env.LARGURA || '1080', 10);

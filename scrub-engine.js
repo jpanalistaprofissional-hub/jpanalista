@@ -128,7 +128,7 @@ function mountScrollWorld(container, config) {
   // ---- build the interleaved segment chain: dive0, conn0, dive1, … diveN-1 ----
   const SEGMENTS = [];
   SECTIONS.forEach((s, i) => {
-    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, still: s.still,
+    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, seqM: s.seqMobile, still: s.still,
                    poster: s.poster, posterM: s.posterMobile,
                    accent: s.accent, w: s.scroll || DIVE_W, linger: s.linger || 0 };
     SEGMENTS.push(dive);
@@ -263,9 +263,59 @@ function mountScrollWorld(container, config) {
     read();
   }
 
+  // Sequência de imagens no celular (JP, 20/10): no navegador do Instagram (Android) cada busca no vídeo
+  // leva ~45 ms e a rolagem ficava em ~19 imagens/s; a mesma cena como WebP num canvas deu ~36/s.
+  // O canvas imita o que a engine usa do <video> (currentTime, duration, seeking, eventos, play/pause).
+  function seqPlayer(seq) {
+    const c = document.createElement('canvas');
+    c.width = seq.w || 1080; c.height = seq.h || 1920;
+    const ctx = c.getContext('2d'), n = seq.n, fps = seq.fps || 24, imgs = new Array(n);
+    let t = 0, shown = -1, meta = false;
+    const ok = (j) => j >= 0 && j < n && imgs[j] && imgs[j].complete && imgs[j].naturalWidth;
+    const draw = () => {
+      const k = Math.max(0, Math.min(n - 1, Math.round(t * fps)));
+      if (k === shown) return;
+      let j = -1;   // quadro ainda não chegou: usa o mais próximo já carregado
+      for (let d = 0; d < n && j < 0; d++) j = ok(k - d) ? k - d : ok(k + d) ? k + d : -1;
+      if (j < 0) return;
+      ctx.drawImage(imgs[j], 0, 0, c.width, c.height);
+      if (shown === -1) c.dispatchEvent(new Event('seeked'));
+      shown = j === k ? k : -2;   // -2 = mostrando um vizinho; redesenha quando o certo chegar
+    };
+    const load = (i) => {
+      const img = new Image(); img.decoding = 'async';
+      img.onload = () => {
+        if (img.decode) img.decode().catch(() => {});
+        if (!meta) { meta = true; c.dispatchEvent(new Event('loadedmetadata')); c.dispatchEvent(new Event('loadeddata')); }
+        draw();
+      };
+      img.src = seq.base + String(i + 1).padStart(3, '0') + '.' + (seq.ext || 'webp');
+      imgs[i] = img;
+    };
+    load(0);   // o 1º quadro primeiro (troca do pôster sem salto), depois o resto em ordem
+    for (let i = 1; i < n; i++) load(i);
+    Object.defineProperties(c, {
+      duration: { get: () => n / fps },
+      seeking: { get: () => false },
+      currentTime: { get: () => t, set: (v) => { t = v; draw(); } },
+    });
+    c.play = () => Promise.resolve();
+    c.pause = () => {};
+    c.src = '';
+    return c;
+  }
+
   function loadClip(s) {
     if (stillsOnly || s.loading || !s.clip) return;
     s.loading = true;
+    if (phoneClass && s.seqM) {
+      const v = seqPlayer(s.seqM);
+      v.className = 'sw-scene__video';
+      v.addEventListener('loadedmetadata', () => { s.ready = true; read(); });
+      v.addEventListener('seeked', () => { s.el.classList.add('has-clip'); }, { once: true });
+      s.el.appendChild(v); s.video = v; s.hasClip = true;
+      return;
+    }
     // Serve the lighter mobile encode on phone-class devices when one was provided
     // (tablets and desktops get the full master — see phoneClass above).
     const url = (phoneClass && s.clipM) ? s.clipM : s.clip;

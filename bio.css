@@ -139,6 +139,14 @@ body { font-family: var(--sw-font-body); -webkit-tap-highlight-color: transparen
   /* Na 1ª cena os botões repetiam os da barra fixa. */
   .sw-copy:first-child .sw-copy__cta { display: none; }
   .sw-copy__cta .sw-btn { min-height: 48px; box-sizing: border-box; display: inline-flex; align-items: center; }
+  /* Contraste do texto (JP, 20/10): na cena 2 a luminária branca do fundo ficava atrás do título.
+     Escurecido de baixo para cima, só onde o texto mora; acima de ~75% da altura o vídeo fica intacto. */
+  .sw-stage::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(to top, rgba(5, 7, 13, .82) 0%, rgba(5, 7, 13, .55) 35%,
+                                rgba(5, 7, 13, .2) 60%, transparent 75%);
+  }
+  .sw-copy__title { text-shadow: 0 2px 18px rgba(5, 7, 13, .65); }
 }
 
 /* ---- computador: o vídeo vertical vira uma coluna ---- */

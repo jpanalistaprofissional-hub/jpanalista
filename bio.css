@@ -149,6 +149,18 @@ body { font-family: var(--sw-font-body); -webkit-tap-highlight-color: transparen
   .sw-copy__title { text-shadow: 0 2px 18px rgba(5, 7, 13, .65); }
 }
 
+/* Barra de endereço do navegador (JP, 17/11): quando ela some ou volta, o Chrome refaz o layout
+   ~0,2 s depois de o dedo soltar e tudo que é `position:fixed; inset:0` muda de altura. A cena dava
+   um salto de zoom de 7% e o texto pulava 56 px. Aqui o palco passa a ter a altura da tela com a
+   barra recolhida (lvh, não muda) e o texto fica preso à altura com a barra à mostra (svh, não muda). */
+@supports (height: 100lvh) {
+  @media (max-width: 860px) {
+    .sw-sky, .sw-stage, .sw-copylayer { inset: 0 0 auto 0; height: 100lvh; }
+    .sw-copy { bottom: calc(100lvh - 100svh + var(--jp-bar-h) + 28px + env(safe-area-inset-bottom)); }
+    .sw-route { top: 50svh; }
+  }
+}
+
 /* ---- computador: o vídeo vertical vira uma coluna ---- */
 @media (min-width: 861px) {
   .jp-bar { display: none; }

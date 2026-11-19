@@ -1,6 +1,6 @@
 # jpanalista.com.br — link da bio
 
-Página que abre em **jpanalista.com.br**, o link da bio do Instagram `@jpanalista.com.br`.
+Página que abre em **jpanalista.com.br**, o link da bio do Instagram `@jpe.ia`.
 Estilo **ultra premium**, feito pelo agente `astucious`: conforme a pessoa rola a página, uma
 câmera atravessa quatro cenas, cada uma com um serviço e o seu botão.
 

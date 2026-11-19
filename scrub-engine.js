@@ -266,7 +266,93 @@ function mountScrollWorld(container, config) {
   // Sequência de imagens no celular (JP, 20/10): no navegador do Instagram (Android) cada busca no vídeo
   // leva ~45 ms e a rolagem ficava em ~19 imagens/s; a mesma cena como WebP num canvas deu ~36/s.
   // O canvas imita o que a engine usa do <video> (currentTime, duration, seeking, eventos, play/pause).
+  // Quadros decodificados de TODAS as sequências, com teto comum (JP, 19/11). Antes cada quadro
+  // 1080×1920 era decodificado na hora do drawImage, no fio principal: 18 ms num computador, bem mais
+  // num celular, e com 360 quadros de 8 MB o Chrome do celular jogava fora os já decodificados e
+  // decodificava de novo a cada passada. Agora o quadro chega pronto (createImageBitmap decodifica fora
+  // do fio principal, já em 810×1440) e só os quadros perto da posição de cada cena ficam na memória.
+  const seqPool = [];
+  const SEQ_MAX = 40;   // ~190 MB em 810×1440
+  function seqEvict() {
+    if (seqPool.length <= SEQ_MAX) return;
+    const score = (e) => (e.pl.c.swActive ? 0 : 1e6) + Math.abs(e.i - e.pl.k);
+    seqPool.sort((x, y) => score(y) - score(x));
+    while (seqPool.length > SEQ_MAX) { const e = seqPool.shift(); e.pl.drop(e.i); }
+  }
+
   function seqPlayer(seq) {
+    if (!window.createImageBitmap || !window.fetch) return seqPlayerImg(seq);
+    const W = 810, H = Math.round(W * (seq.h || 1920) / (seq.w || 1080));
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const ctx = c.getContext('2d', { alpha: false }), n = seq.n, fps = seq.fps || 24;
+    const blobs = new Array(n), bms = new Array(n), busy = new Array(n);
+    const pl = { c, k: 0, drop: (i) => { if (bms[i]) { bms[i].close(); bms[i] = null; } } };
+    let t = 0, shown = -1, meta = false, dir = 1, inflight = 0;
+    let opts = { resizeWidth: W, resizeHeight: H, resizeQuality: 'medium' };
+    const url = (i) => seq.base + String(i + 1).padStart(3, '0') + '.' + (seq.ext || 'webp');
+    const draw = () => {
+      const k = pl.k;
+      if (k === shown) return;
+      let j = -1;   // quadro ainda não decodificado: mostra o mais próximo pronto
+      for (let d = 0; d < n && j < 0; d++) j = bms[k - d] ? k - d : bms[k + d] ? k + d : -1;
+      if (j < 0) return;
+      ctx.drawImage(bms[j], 0, 0, W, H);
+      if (shown === -1) c.dispatchEvent(new Event('seeked'));
+      shown = j === k ? k : -2;   // -2 = mostrando um vizinho; redesenha quando o certo chegar
+    };
+    const want = (i) => {
+      const ahead = c.swActive ? 20 : 3, behind = c.swActive ? 8 : 0, d = (i - pl.k) * dir;
+      return d >= -behind && d <= ahead;
+    };
+    const decode = (i) => {
+      busy[i] = true; inflight++;
+      createImageBitmap(blobs[i], opts)
+        .catch(() => { opts = undefined; return createImageBitmap(blobs[i]); })   // Safari antigo sem resize
+        .then((bm) => {
+          busy[i] = false; inflight--;
+          if (!want(i)) { bm.close(); pump(); return; }
+          bms[i] = bm; seqPool.push({ pl, i }); seqEvict();
+          if (!meta) { meta = true; c.dispatchEvent(new Event('loadedmetadata')); c.dispatchEvent(new Event('loadeddata')); }
+          draw(); pump();
+        }, () => { busy[i] = false; inflight--; });
+    };
+    const pump = () => {
+      const ahead = c.swActive ? 20 : 3, behind = c.swActive ? 8 : 0, order = [pl.k];
+      for (let d = 1; d <= ahead; d++) order.push(pl.k + dir * d);
+      for (let d = 1; d <= behind; d++) order.push(pl.k - dir * d);
+      for (const i of order) {
+        if (inflight >= 3) return;
+        if (i < 0 || i >= n || bms[i] || busy[i] || !blobs[i]) continue;
+        decode(i);
+      }
+    };
+    // O arquivo comprimido (~50 KB por quadro) fica todo na memória; decodificado, só a janela.
+    for (let i = 0; i < n; i++) {
+      fetch(url(i)).then((r) => r.ok ? r.blob() : Promise.reject(new Error(r.status)))
+        .then((b) => { blobs[i] = b; pump(); }, () => {});
+    }
+    Object.defineProperties(c, {
+      duration: { get: () => n / fps },
+      seeking: { get: () => false },
+      currentTime: { get: () => t, set: (v) => {
+        t = v;
+        const k = Math.max(0, Math.min(n - 1, Math.round(t * fps)));
+        if (k !== pl.k) dir = k > pl.k ? 1 : -1;
+        pl.k = k; draw(); pump();
+      } },
+    });
+    c.play = () => Promise.resolve();
+    c.pause = () => {};
+    c.src = '';
+    c.swSeq = true;   // raf() usa isto para seguir o dedo 1:1
+    c.swActive = false;   // raf() marca a cena visível; só ela guarda janela larga de quadros
+    c.swPump = pump;
+    return c;
+  }
+
+  // Reserva para navegador sem createImageBitmap: o player antigo, com <img>.
+  function seqPlayerImg(seq) {
     const c = document.createElement('canvas');
     c.width = seq.w || 1080; c.height = seq.h || 1920;
     const ctx = c.getContext('2d'), n = seq.n, fps = seq.fps || 24, imgs = new Array(n);
@@ -400,6 +486,7 @@ function mountScrollWorld(container, config) {
       // On phones a fast flick would otherwise pile up seeks and freeze the clip;
       // cur keeps lerping, so we snap to the latest target the moment it's free.
       if (s.video.seeking) continue;
+      if (s.video.swSeq && s.video.swActive !== s.visible) { s.video.swActive = s.visible; if (s.video.swPump) s.video.swPump(); }
       if (!s.visible && Math.abs(s.cur - s.target) < 0.002) continue;
       // Sequência no canvas (celular): sem amortecimento. Desenhar um quadro não custa busca, e o
       // amortecimento fazia a cena continuar andando 4 a 8 quadros depois de o dedo parar (JP, 17/11).

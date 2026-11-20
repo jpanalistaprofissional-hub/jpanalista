@@ -37,6 +37,11 @@ const PASSA = 0.90, AVISO = 0.75;
 const LARGURA = parseInt(process.env.LARGURA || '1080', 10);
 // Altura fixa em 9:16: o Magnific às vezes entrega 1080x1918, e a emenda só se mede com tamanhos iguais.
 const ALTURA = Math.round(LARGURA * 16 / 9 / 2) * 2;
+// Largura da SEQUÊNCIA do celular, separada do vídeo. O canvas tem o tamanho do quadro e a decodificação cresce
+// com a área: 720x1280 tem 44% dos pixels de 1080x1920. Quem decide é o A/B da página /teste/ no celular do JP
+// (nitidez × fluidez). Padrão = LARGURA, sem mudar nada até a decisão: SEQ_LARGURA=720 node producao/processar.mjs
+const SEQ_LARGURA = parseInt(process.env.SEQ_LARGURA || String(LARGURA), 10);
+const SEQ_ALTURA = Math.round(SEQ_LARGURA * 16 / 9 / 2) * 2;
 
 function ff(args, { verboso = false } = {}) {
   const r = spawnSync(FF, ['-hide_banner', '-v', verboso ? 'info' : 'error', '-y', ...args], { encoding: 'utf8' });
@@ -88,7 +93,7 @@ for (const { i, cena, voo } of brutos) {
   const SEQ = path.join(ASSETS, 'seq', `cena${i}`);
   fs.rmSync(SEQ, { recursive: true, force: true });
   fs.mkdirSync(SEQ, { recursive: true });
-  ff(['-i', voo, '-an', '-vf', `scale=${LARGURA}:${ALTURA}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0`,
+  ff(['-i', voo, '-an', '-vf', `scale=${SEQ_LARGURA}:${SEQ_ALTURA}:flags=lanczos,unsharp=5:5:0.6:5:5:0.0`,
       '-c:v', 'libwebp', '-quality', '80', '-compression_level', '4', path.join(SEQ, '%03d.webp')]);
   ff(['-ss', '0', '-i', path.join(VID, `cena${i}.mp4`), '-frames:v', '1', '-q:v', '3',
       path.join(ASSETS, `cena${i}-poster.jpg`)]);
@@ -118,7 +123,7 @@ const cenas = brutos.map(({ i }) => ({
   clip: `assets/vid/cena${i}.mp4`,
   clipMobile: `assets/vid/cena${i}-m.mp4`,
   seqMobile: { base: `assets/seq/cena${i}/`, n: fs.readdirSync(path.join(ASSETS, 'seq', `cena${i}`)).length,
-               ext: 'webp', fps: 24, w: LARGURA, h: ALTURA },
+               ext: 'webp', fps: 24, w: SEQ_LARGURA, h: SEQ_ALTURA },
 }));
 fs.writeFileSync(path.join(ASSETS, 'cenas.js'),
   '// Gerado por producao/processar.mjs. Não editar à mão.\n' +
